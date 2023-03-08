@@ -1,0 +1,51 @@
+  public void fillTree(){
+        ArrayList<pair> path = new ArrayList<pair>();
+        fillTree(root, path);
+
+    }
+    public void fillTree(TreeNode node, ArrayList path){
+       path.add(node.data);
+        System.out.print("Path: ");
+       for(Object i: path){
+           System.out.print(i.toString() + " ");
+       }
+        System.out.println(" ");
+       if(node.children.size()==0){
+           if(node.data.isEqual(new pair(n,m))){
+               paths.add(path);
+               path.remove(path.size()-1);
+           }
+           else{
+               if(node.data.getX()+1<=n && !inList(new pair(node.data.getX()+1,node.data.getY()), path)){
+                   node.children.add(new TreeNode(new pair(node.data.getX()+1,node.data.getY())));
+               }
+               if(node.data.getY()+1<=m && !inList(new pair(node.data.getX(),node.data.getY()+1), path)){
+                   node.children.add(new TreeNode(new pair(node.data.getX(),node.data.getY()+1)));
+               }
+               if(node.data.getX()-1>=0 && !inList(new pair(node.data.getX()-1,node.data.getY()), path)){
+                   node.children.add(new TreeNode(new pair(node.data.getX()-1,node.data.getY())));
+               }
+               if(node.data.getY()-1>=0 && !inList(new pair(node.data.getX(),node.data.getY()-1), path)){
+                   node.children.add(new TreeNode(new pair(node.data.getX(),node.data.getY()-1)));
+               }
+               if(node.children.size()==0){
+                   path.remove(path.size()-1);
+               }
+               System.out.print("Children: ");
+               for(TreeNode i: node.children){
+                   System.out.print(i.data.toString() + " ");
+               }
+               System.out.println(" ");
+               System.out.print("Path: ");
+               for(Object i: path){
+                   System.out.print(i.toString() + " ");
+               }
+               System.out.println(" ");
+               System.out.println(" -----------------------------");
+               for(TreeNode i: node.children){
+                   fillTree(i, path);
+               }
+           }
+
+       }
+    }
