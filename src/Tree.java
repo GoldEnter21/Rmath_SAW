@@ -35,34 +35,7 @@ public class Tree{
     public long getNumSnakes(){
         return numSnakes;
     }
-    public void preorderTraversal(TreeNode root)
-    {
-        Stack<TreeNode> stack = new Stack<>();
 
-        // 'Preorder'-> contains all the
-        // visited nodes
-        ArrayList<pair> Preorder = new ArrayList<>();
-
-        stack.push(root);
-
-        while (!stack.isEmpty()) {
-            TreeNode temp = stack.peek();
-            stack.pop();
-            // store the key in preorder vector(visited
-            // list)
-            Preorder.add(temp.data);
-            // Push all of the child nodes of temp into
-            // the stack from right to left.
-            for (int i = temp.children.size() - 1; i >= 0;
-                 i--) {
-                stack.push(temp.children.get(i));
-            }
-        }
-        for (pair i : Preorder) {
-            System.out.print(i.toString());
-        }
-        System.out.println();
-    }
     public void fillTree(){
         for(int i =0; i<(n+1)*(m+1);i++){
             addLayer(root);
@@ -125,16 +98,7 @@ public class Tree{
         // Utility function call
         addLayer(root, vec);
     }
-    static void printPath(ArrayList<pair> vec)
-    {
 
-        // Print elements in the vector
-        for (pair ele : vec)
-        {
-            System.out.print(ele.toString() + " ");
-        }
-        System.out.println();
-    }
     public void printAllRootToLeafPaths(TreeNode root, ArrayList<pair> vec)
     {
 
@@ -165,8 +129,10 @@ public class Tree{
             // Pop the leaf node
             // and return
             numPaths ++;
-            if(vec.size() >= (n+1)*(m+1)-1){
+            if(vec.size()-1 >= (n+1)*(m+1)-2){
                 numSnakes++;
+                for(pair i: vec){
+                }
             }
             vec.remove(vec.size() - 1);
             return;
@@ -209,17 +175,6 @@ public class Tree{
             System.out.println(letters(i));
         }
     }
-    public int numRotated(){
-        int num = 0;
-        for(ArrayList<pair> i: paths){
-            for(ArrayList<pair> j: paths){
-                    if(isStringReversed(letters(i),letters(j))){
-                        num++;
-                }
-            }
-        }
-        return num/2;
-    }
     public String letters(ArrayList<pair> path){
         String letters = new String();
         for(int i = 0; i<path.size()-1;i++){
@@ -239,33 +194,6 @@ public class Tree{
         return letters;
     }
 
-    public int numLongestPaths(){
-        int num = 0;
-        for(ArrayList<pair> i: paths){
-            if(i.size() >= (n+1)*(m+1)-1){
-                num++;
-            }
-        }
-        return num;
-    }
-    public static boolean isStringReversed(String s1, String s2) {
-        if (s1 == null || s2 == null || s1.length() == 1 || s2.length() == 1) {
-            return true;
-        }else if (s1.length() != s2.length()) {
-            return false;
-        }else {
-            char s1first = Character.toLowerCase(s1.charAt(0));
-            char s2last = Character.toLowerCase(s2.charAt(s2.length() - 1));
-
-            if (s1first == s2last){
-                String s1shorter = s1.substring(0);
-                String s2shorter = s2.substring(0, s2.length() - 1);
-                return isStringReversed(s1shorter, s2shorter);
-            }else {
-                return false;
-            }
-        }
-    }
     public void printSAWsperPoint(){
         System.out.println("Number of Valid SAWs that contain this point");
         for(int i = 0; i<=n;i++){
